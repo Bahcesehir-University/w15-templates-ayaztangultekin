@@ -1,0 +1,43 @@
+C++ TEMPLATES - QUICK REVISION SHEET
+====================================
+
+CORE IDEA
+  Templates let you write code ONCE that works for MANY types.
+  The compiler generates a real function/class per type you use.
+
+WHY IT MATTERS
+  No copy-paste for int, double, string... One generic version.
+  std::vector, std::pair, std::max are all templates.
+
+FUNCTION TEMPLATE
+  template <typename T>
+  T maxValue(T a, T b) { return (a > b) ? a : b; }
+  Call: maxValue(3, 7);  maxValue(2.5, 1.5);
+
+MULTIPLE TYPE PARAMETERS + RETURN TYPE
+  template <typename T1, typename T2>
+  auto addValues(T1 a, T2 b) -> decltype(a + b) { return a + b; }
+  int + double -> double (correct type, no precision loss).
+
+CLASS TEMPLATE
+  template <typename A, typename B>
+  class Pair { A first_; B second_; ... };
+  Use: Pair<int, std::string> p(1, "one");
+
+SPECIALIZATION (different behavior for one type)
+  template <typename T> int describe(const T&) { return 1; }
+  template <> int describe<std::string>(const std::string& s)
+      { return 2 + (int)s.size(); }
+
+NON-TYPE PARAMETER (a value, not a type)
+  template <typename T, int N>
+  class FixedArray { T data_[N]; ... };  // N fixed at compile time
+  Use: FixedArray<int, 4> fa;
+
+KEY RULES
+  - Put template definitions in the SAME file where you use them.
+  - 'template <...>' goes right above the function/class.
+  - Specialization needs 'template <>' in front.
+  - Non-type param (int N) must be a compile-time constant.
+
+READ THIS IN 2-3 MIN, THEN START CODING.
